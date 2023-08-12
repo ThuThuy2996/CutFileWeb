@@ -1,0 +1,59 @@
+﻿@model IEnumerable<CutFileWeb.Models.Brand>
+
+@{
+    ViewData["Title"] = "Brand List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Brand List</h1>
+
+<p>
+    <a asp-action="Create">
+        <i class="fas fa-plus"></i>
+        Create New Brand
+    </a>
+
+</p>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th class="text-center col-sm-3">
+                @Html.DisplayNameFor(model => model.BrandName)
+            </th>
+            <th class="text-center col-sm-4">
+                @Html.DisplayNameFor(model => model.BrandDescription)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.BrandOrder)
+                </th>*@
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrandName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrandDescription)
+                </td>
+
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.BrandId">Edit</a> |*@
+                    <a asp-action="Edit" asp-route-id="@item.BrandId" class="btn btn-success btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    @*<a asp-action="Details" asp-route-id="@item.BrandId">Details</a> |*@
+
+                    <a class="btn btn-danger btn-sm" asp-route-id="@item.BrandId" asp-action="Delete">
+                        <i class="fas fa-trash"> </i>
+
+                    </a>
+                    @*<a asp-action="Delete" asp-route-id="@item.BrandId">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
