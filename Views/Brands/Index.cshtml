@@ -40,18 +40,15 @@
                     @Html.DisplayFor(modelItem => item.BrandDescription)
                 </td>
 
-                <td>
-                    @*<a asp-action="Edit" asp-route-id="@item.BrandId">Edit</a> |*@
+                <td>                   
                     <a asp-action="Edit" asp-route-id="@item.BrandId" class="btn btn-success btn-sm">
                         <i class="fas fa-edit"></i>
-                    </a>
-                    @*<a asp-action="Details" asp-route-id="@item.BrandId">Details</a> |*@
+                    </a>                   
 
                     <a class="btn btn-danger btn-sm" asp-route-id="@item.BrandId" asp-action="Delete">
                         <i class="fas fa-trash"> </i>
 
-                    </a>
-                    @*<a asp-action="Delete" asp-route-id="@item.BrandId">Delete</a>*@
+                    </a>                  
                 </td>
             </tr>
         }

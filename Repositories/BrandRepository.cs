@@ -48,14 +48,9 @@ namespace CutFileWeb.Responsitories
         public async Task<bool> Save()
         {
             return await _context.SaveChangesAsync() > 0 ? true : false;
-        }
+        }              
 
-        public Task<bool> Update(Brand brand)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> UpdateAsync(Brand brand)
+        public async Task<bool> Update(Brand brand)
         {
             try
             {

@@ -10,14 +10,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.CategoryName)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.ParentId)
+            @Html.DisplayNameFor(model => model.ParentId)
             </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
@@ -29,26 +29,42 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.ParentId)
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.ParentId == 0) {
+                        @Html.DisplayFor(modelItem => item.CategoryName)
+                       
+                    }else {
+                        <span>  |-- @item.CategoryName</span>
+                    }
+                    
+                   
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.ParentId)
             </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @if (item.Active == 1) {
+                        <i class="fas fa-check" style="color: #11a40e;"></i>
+                    } else {
+                        <i class="far fa-times-circle" style="color: #f60404;"></i>
+                    }                    
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-success btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                   
+                    <a class="btn btn-danger btn-sm" asp-route-id="@item.CategoryId" asp-action="Delete">
+                        <i class="fas fa-trash"> </i>
+                    </a>                 
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -1,13 +1,22 @@
-﻿using CutFileWeb.Interfaces;
+﻿using CutFileWeb.Data;
+using CutFileWeb.Interfaces;
 using CutFileWeb.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CutFileWeb.Responsitories
 {
     public class ProductRepository : IProductRepository
     {
-        public Task<bool> Add(Product product)
+        private readonly ApplicationDbContext _context;
+        public ProductRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task<bool> Add(Product product)
+        {
+            _context.Add(product);
+            return await Save();
         }
 
         public Task<bool> Delete(Product product)
@@ -15,9 +24,9 @@ namespace CutFileWeb.Responsitories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            throw new NotImplementedException();
+           return await _context.Products.Include(i => i.Category).Include(p => p.Brand).ToListAsync();
         }
 
         public Task<Product> GetProductById(int id)
@@ -35,9 +44,9 @@ namespace CutFileWeb.Responsitories
             throw new NotImplementedException();
         }
 
-        public Task<bool> Save()
+        public async Task<bool> Save()
         {
-            throw new NotImplementedException();
+            return await _context.SaveChangesAsync() > 0 ? true : false;
         }
 
         public Task<bool> Update(Product product)
