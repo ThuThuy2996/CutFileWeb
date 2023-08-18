@@ -58,5 +58,11 @@ namespace CutFileWeb.Responsitories
         {          
             return await _context.Categories.Where(p => p.ParentId == parentId).ToListAsync();
         }
+
+        public async Task<Category> GetByIdAsyncNoTracking(int id)
+        {
+            var lst = await _context.Categories.Include(p => p.Products).AsNoTracking().FirstOrDefaultAsync(o => o.CategoryId == id);
+            return lst != null ? lst : new Category();
+        }
     }
 }

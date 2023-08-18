@@ -9,10 +9,7 @@ namespace CutFileWeb.Models
         public int ProductId { get; set; }
         [Required]
         [StringLength(100)]
-        public string? ProductName { get; set; }
-     
-        [Required]
-        public int? ProductCategoryId { get; set; }
+        public string? ProductName { get; set; }     
         [Required]
         public decimal? ProductPrice { get; set; }
         [StringLength(500)]
@@ -20,10 +17,13 @@ namespace CutFileWeb.Models
         public string? ProductContentDetail { get; set; }
         [StringLength(200)]
         public string? ProductImage { get; set; }
+        [Required]
+        [StringLength(200)]
+        public string? ProductFile { get; set; }
         [ForeignKey("CategoryId")]
-        public Category? Category { get; set; }
+        public int CategoryId { get; set; }
         [ForeignKey("BrandId")]
-        public Brand? Brand { get; set; }
+        public int? BrandId { get; set; }
 
     }
 }

@@ -6,7 +6,8 @@ namespace CutFileWeb.Interfaces
     {
         Task<IEnumerable<Category>> GetCategoriesSliceAsync(int offset, int size);
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
-        Task<Category> GetCategoryByIdAsync(int id);       
+        Task<Category> GetCategoryByIdAsync(int id);
+        Task<Category> GetByIdAsyncNoTracking(int id);
         Task<IEnumerable<Category>> GetCategoriesByParentIdAsync(int parentId);
         Task<bool> Add(Category category);
         Task<bool> Update(Category category);

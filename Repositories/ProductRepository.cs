@@ -19,29 +19,35 @@ namespace CutFileWeb.Responsitories
             return await Save();
         }
 
-        public Task<bool> Delete(Product product)
+        public async Task<bool> Delete(Product product)
         {
-            throw new NotImplementedException();
+            _context.Remove(product);
+            return await Save();
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-           return await _context.Products.Include(i => i.Category).Include(p => p.Brand).ToListAsync();
+            return await _context.Products.ToListAsync();
         }
 
-        public Task<Product> GetProductById(int id)
+        public async Task<Product> GetProductById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Products.Where(o => o.ProductId == id).FirstOrDefaultAsync();
         }
 
-        public Task<Product> GetProductByName(string name)
+        public async Task<Product> GetProductByIdAsyncNoTracking(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Products.Where(o => o.ProductId == id).AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public Task<IEnumerable<Product>> GetProductsSliceAsync(int? pageIndex = null, int? pageSize = null)
+        public async Task<IEnumerable<Product>> GetProductByName(string name)
         {
-            throw new NotImplementedException();
+            return await _context.Products.Where(o => o.ProductName.Contains(name)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsSliceAsync(int pageIndex, int pageSize)
+        {
+            return await _context.Products.Skip(pageIndex).Take(pageSize).ToListAsync();
         }
 
         public async Task<bool> Save()
@@ -49,9 +55,10 @@ namespace CutFileWeb.Responsitories
             return await _context.SaveChangesAsync() > 0 ? true : false;
         }
 
-        public Task<bool> Update(Product product)
+        public async Task<bool> Update(Product product)
         {
-            throw new NotImplementedException();
+            _context.Update(product);
+            return await Save();
         }
     }
 }

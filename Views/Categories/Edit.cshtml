@@ -1,46 +1,63 @@
-﻿@model CutFileWeb.Models.Category
+﻿@using CutFileWeb.ViewModels
+@model CategoriesViewModel
+
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Update</h1>
 
 <h4>Categories</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CategoryId" />
-            <div class="form-group">
-                <label asp-for="CategoryName" class="control-label"></label>
-                <input asp-for="CategoryName" class="form-control" />
-                <span asp-validation-for="CategoryName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ParentId" class="control-label"></label>
-                <input asp-for="ParentId" class="form-control" />
-                <span asp-validation-for="ParentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Active" class="control-label"></label>
-                <input asp-for="Active" class="form-control" />
-                <span asp-validation-for="Active" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="col-md-12">
+        <div class="card-body">
+            <form asp-action="Edit">
+                @* <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                <input type="hidden" asp-for="@Model.CategoryId" id="CategoryId" />
+                <div class="form-group">
+                    <label asp-for="@Model.CategoryName" class="control-label">Category Name</label>
+                    <input asp-for="@Model.CategoryName" class="form-control" />
+                    <span asp-validation-for="@Model.CategoryName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.ParentId">Parent Category</label>
+                    <select asp-for="@Model.ParentId" class="form-control">
+                        <option value="0">--Select--</option>
+                        @if (Model.ParentCategories != null)
+                        {
+                            @foreach (var parent in Model.ParentCategories)
+                            {
+                                <option value="@parent.CategoryId">@parent.CategoryName</option>
+                            }
+                        }
+
+                    </select>
+                    <span asp-validation-for="@Model.ParentId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.Description" class="control-label"></label>
+                    <input asp-for="@Model.Description" class="form-control" />
+                    <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" asp-for="@Model.Active" id="Active" checked>
+                    <label asp-for="@Model.Active" class="form-check-label"></label>
+                </div>
+                <div class="card-footer">
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+
+            </form>
+        </div>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

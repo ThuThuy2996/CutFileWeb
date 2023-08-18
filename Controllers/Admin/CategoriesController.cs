@@ -122,13 +122,15 @@ namespace CutFileWeb.Controllers.Admin
             var category = await _categoryResponsitory.GetCategoryByIdAsync(id);
             if (category == null) return NotFound();
             var lstParent = await _categoryResponsitory.GetCategoriesByParentIdAsync(0);
+            var lstParentView = new List<ParentCategories>();
 
-            var lstParentView = lstParent.Select(parent =>
-            new ParentCategories
+            if (lstParent != null && lstParent.Count() > 0)
             {
-                CategoryId = parent.CategoryId,
-                CategoryName = parent.CategoryName
-            });
+                foreach (var item in lstParent)
+                {
+                    lstParentView.Add(new ParentCategories { CategoryName = item.CategoryName, CategoryId = item.CategoryId });
+                }
+            }
 
             var categoriesView = new CategoriesViewModel
             {
@@ -137,7 +139,7 @@ namespace CutFileWeb.Controllers.Admin
                 ParentId = category.ParentId,
                 Description = category.Description,
                 Active = category.Active == 1 ? true : false,
-                ParentCategories = (List<ParentCategories>)lstParentView
+                ParentCategories = lstParentView
 
             };
 
@@ -159,7 +161,7 @@ namespace CutFileWeb.Controllers.Admin
             if (ModelState.IsValid)
             {
 
-                var category = await _categoryResponsitory.GetCategoryByIdAsync(id);
+                var category = await _categoryResponsitory.GetByIdAsyncNoTracking(id);
 
                 if (category == null)
                 {
