@@ -8,10 +8,11 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\resources\icon\Logo-CFL-Black-300px.ico" />
-    <Content Remove="wwwroot\resources\img\Logo-CFL-Black-300px.png" />
+    <Content Remove="wwwroot\resources\img\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.20" />
@@ -19,16 +20,17 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\plugins\" />
+    <Folder Include="wwwroot\resources\user\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\resources\icon\Logo-CFL-Black-300px.ico" />
-    <None Include="wwwroot\resources\img\Logo-CFL-Black-300px.png" />
+    <None Include="wwwroot\resources\img\logo.png" />
   </ItemGroup>
 
 </Project>

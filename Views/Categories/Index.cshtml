@@ -4,6 +4,15 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<style>
+        .disable {
+       pointer-events: none;
+       cursor: default;
+          color: #d7d0d0;
+    background-color: gray;
+    border: 1px solid gray;
+    }
+</style>
 
 <h1>Index</h1>
 
@@ -38,8 +47,7 @@
                        
                     }else {
                         <span>  |-- @item.CategoryName</span>
-                    }
-                    
+                    }                   
                    
                 </td>
                 @*<td>
@@ -59,8 +67,8 @@
                     <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-success btn-sm">
                         <i class="fas fa-edit"></i>
                     </a>
-                   
-                    <a class="btn btn-danger btn-sm" asp-route-id="@item.CategoryId" asp-action="Delete">
+
+                    <a class="btn btn-danger btn-sm @(@item.Products != null && @item.Products.Count() >0 ?"disable" : "")" asp-route-id="@item.CategoryId" asp-action="Delete">
                         <i class="fas fa-trash"> </i>
                     </a>                 
                 </td>

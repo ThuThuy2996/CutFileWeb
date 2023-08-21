@@ -27,7 +27,7 @@ namespace CutFileWeb.Responsitories
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products.Include(p => p.Category).Include(o => o.ProductBrand).ToListAsync();
         }
 
         public async Task<Product> GetProductById(int id)

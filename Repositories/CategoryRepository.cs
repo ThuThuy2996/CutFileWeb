@@ -29,17 +29,22 @@ namespace CutFileWeb.Responsitories
 
         public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Categories.Include(o => o.Products).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Category>> GetParentsCategoriesAsync()
+        {
+            return await _context.Categories.Include(o => o.Products).Where(p => p.ParentId == 0).ToListAsync();
         }
 
         public async Task<IEnumerable<Category>> GetCategoriesSliceAsync(int offset, int size)
         {
-            return await _context.Categories.Skip(offset).Take(size).ToListAsync();
+            return await _context.Categories.Include(o => o.Products).Skip(offset).Take(size).ToListAsync();
         }
 
         public async Task<Category> GetCategoryByIdAsync(int id)
         {
-            var lst = await _context.Categories.FirstOrDefaultAsync(o => o.CategoryId == id);
+            var lst = await _context.Categories.Include(o => o.Products).FirstOrDefaultAsync(o => o.CategoryId == id);
             return lst != null ? lst : new Category();
         }
 
@@ -56,7 +61,7 @@ namespace CutFileWeb.Responsitories
 
         public async Task<IEnumerable<Category>> GetCategoriesByParentIdAsync(int parentId)
         {          
-            return await _context.Categories.Where(p => p.ParentId == parentId).ToListAsync();
+            return await _context.Categories.Where(p => p.ParentId != 0 && p.ParentId == parentId).ToListAsync();
         }
 
         public async Task<Category> GetByIdAsyncNoTracking(int id)

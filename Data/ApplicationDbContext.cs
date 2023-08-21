@@ -22,5 +22,10 @@ namespace CutFileWeb.Data
         public DbSet<CutFileWeb.Models.Category>? Categories { get; set; }
 
         public DbSet<CutFileWeb.Models.Product>? Products { get; set; }
+
+        internal Task<Product> FirstOrDefault(Func<object, bool> value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

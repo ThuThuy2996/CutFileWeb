@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CutFileWeb.Models.Product>
+﻿@using CutFileWeb.Models
+@model IEnumerable<Product>
 
 @{
     ViewData["Title"] = "Index";
@@ -17,20 +18,17 @@
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductBrand.BrandName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProductPrice)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProductDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductContentDetail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImage)
-            </th>
+            </th>  
             <th></th>
         </tr>
     </thead>
@@ -41,23 +39,19 @@
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.ProductBrand.BrandName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductPrice)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductDescription)
-            </td>
+            </td>           
             <td>
-                @Html.DisplayFor(modelItem => item.ProductContentDetail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImage)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |               
                 <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
             </td>
         </tr>

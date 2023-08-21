@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CutFileWeb.ViewModels.CategoriesMenu>
+
+<style>
+    .ca-child {
+        display: none
+    }
+
+        .ca-child > li > a:hover {
+            font-weight: 500;
+            background-color: #fff;
+            color: #098DCA;
+            -webkit-transition: 0.2s all;
+            transition: 0.2s all;
+        }
+
+    .ca-parent:hover > ul {
+        display: block
+    }
+</style>
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                @foreach (var item in Model)
+                {
+                    @if (item.ChildCategories.Count == 0)
+                    {
+                        <li><a href="#">@item.CategoryName</a></li>
+                    }
+                    else
+                    {
+                        <li class="dropdown ca-parent">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@item.CategoryName <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu ca-child">
+                                @foreach (var child in item.ChildCategories)
+                                {
+                                    <li><a href="#">@child.ChildName</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                }
+
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>

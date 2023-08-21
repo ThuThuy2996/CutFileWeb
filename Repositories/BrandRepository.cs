@@ -27,12 +27,12 @@ namespace CutFileWeb.Responsitories
 
         public async Task<IEnumerable<Brand>> GetAllBrandsAsync()
         {
-            return await _context.Brands.ToListAsync();
+            return await _context.Brands.Include(o => o.Products).ToListAsync();
         }
 
         public async Task<Brand> GetBrandsByIdAsync(int id)
         {
-            return await _context.Brands.FirstOrDefaultAsync(o => o.BrandId == id);
+            return await _context.Brands.Include(o => o.Products).FirstOrDefaultAsync(o => o.BrandId == id);
         }
 
         public Task<Brand> GetBrandsByName(string name)

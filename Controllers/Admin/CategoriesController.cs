@@ -35,7 +35,8 @@ namespace CutFileWeb.Controllers.Admin
                             CategoryName = p.CategoryName,
                             ParentId = p.ParentId,
                             Description = p.Description,
-                            Active = p.Active
+                            Active = p.Active,
+                            Products = p.Products
                         };
 
             return View(query);
@@ -212,9 +213,17 @@ namespace CutFileWeb.Controllers.Admin
 
             var category = await _categoryResponsitory.GetCategoryByIdAsync(id);
             if (category == null) return NotFound();
-            _categoryResponsitory.Delete(category);
-
-            return RedirectToAction(nameof(Index));
+            if(category.Products != null && category.Products.Count > 0)
+            {
+                ViewBag.Message = "Doo not delete ! This category exists products";
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                await _categoryResponsitory.Delete(category);
+                return RedirectToAction(nameof(Index));
+            }
+        
         }
     }
 }
